@@ -7,19 +7,15 @@ let cssCache = "";
 
 
 function generateTheme({
-  vuePath,
-  entry,
   mainLessFile,
   varFile,
 }) {
   return new Promise((resolve, reject) => {
 
-    let styles = [];
-    let content = fs.readFileSync(entry).toString();
-    content += "\n";
+    let content = ”“;
     if (mainLessFile) {
       const customStyles = fs.readFileSync(mainLessFile).toString();
-      content += `\n${customStyles}`;
+      content += `${customStyles}`;
     }
     const hashCode = hash.sha256().update(content).digest('hex');
     if (hashCode === hashCache) {
@@ -27,9 +23,6 @@ function generateTheme({
       return;
     }
     hashCache = hashCode;
-    const lessPaths = [
-      vuePath
-    ];
     return bundle({
         src: varFile
       }).then(colorsLess => {
