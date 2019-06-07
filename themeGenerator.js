@@ -1,41 +1,41 @@
-const fs = require("fs");
-const bundle = require("less-bundle-promise");
-const hash = require("hash.js");
+const fs = require('fs')
+const bundle = require('less-bundle-promise')
+const hash = require('hash.js')
 
-let hashCache = "";
-let cssCache = "";
+let hashCache = ''
+let cssCache = ''
 
-
-function generateTheme({
-  mainLessFile,
-  varFile,
-}) {
+function generateTheme({ mainLessFile, varFile }) {
   return new Promise((resolve, reject) => {
-
-    let content = ”“;
+    let content = ''
     if (mainLessFile) {
-      const customStyles = fs.readFileSync(mainLessFile).toString();
-      content += `${customStyles}`;
+      const customStyles = fs.readFileSync(mainLessFile).toString()
+      content += `${customStyles}`
     }
-    const hashCode = hash.sha256().update(content).digest('hex');
+    const hashCode = hash
+      .sha256()
+      .update(content)
+      .digest('hex')
     if (hashCode === hashCache) {
-      resolve(cssCache);
-      return;
+      resolve(cssCache)
+      return
     }
-    hashCache = hashCode;
+    hashCache = hashCode
     return bundle({
-        src: varFile
-      }).then(colorsLess => {
-        content = `${colorsLess}\n${content}`.replace(/@import.*;/igm,'');
-        cssCache = content;
-        return resolve(content);
-      }).catch(err => {
-      console.log("Error", err);
-      reject(err);
-    });
-  });
+      src: varFile
+    })
+      .then(colorsLess => {
+        content = `${colorsLess}\n${content}`.replace(/@import.*;/gim, '')
+        cssCache = content
+        return resolve(content)
+      })
+      .catch(err => {
+        console.log('Error', err)
+        reject(err)
+      })
+  })
 }
 
 module.exports = {
   generateTheme
-};
+}
