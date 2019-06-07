@@ -1,0 +1,26 @@
+{
+  "name": "vue-theme-plugin",
+  "version": "0.0.2",
+  "description": "a vue theme less generator webpack plugin",
+  "homepage": "https://github.com/herghost000/vue-theme-plugin",
+  "bugs": "https://github.com/herghost000/vue-theme-plugin/issues",
+  "main": "index.js",
+  "keywords": [
+    "webpack",
+    "plugin",
+    "vue",
+    "less",
+    "theme",
+    "generator"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "zack",
+  "license": "ISC",
+  "dependencies": {
+    "less-bundle-promise": "1.0.7",
+    "glob": "^7.1.3",
+    "hash.js": "^1.1.5"
+  }
+}
