@@ -6,8 +6,6 @@ const path = require("path");
 class VueThemePlugin {
   constructor(options) {
     const defaulOptions = {
-      vuePath: path.join(__dirname, 'styles'),
-      entry: path.join(__dirname, 'styles', 'index.less'),
       mainLessFile: path.join(__dirname, "../../src/styles/index.less"),
       varFile: path.join(__dirname, "../../src/styles/variables.less"),
       indexFileName: "index.html",
