@@ -22,30 +22,6 @@ class VueThemePlugin {
   apply(compiler) {
     const options = this.options;
     compiler.plugin("emit", function (compilation, callback) {
-      const less = `
-    <link rel="stylesheet/less" type="text/css" href="${options.publicPath}/color.less" />
-    <script>
-      window.less = {
-        async: false,
-        env: 'production'
-      };
-    </script>
-    <script type="text/javascript" src="${options.lessUrl}"></script>
-        `;
-      if (
-        options.indexFileName &&
-        options.indexFileName in compilation.assets
-      ) {
-        const index = compilation.assets[options.indexFileName];
-        let content = index.source();
-
-        if (!content.match(/\/color\.less/g)) {
-          index.source = () =>
-            content.replace(less, "").replace(/<body>/gi, `<body>${less}`);
-          content = index.source();
-          index.size = () => content.length;
-        }
-      }
       if (options.generateOnce && this.colors) {
         compilation.assets["color.less"] = {
           source: () => this.colors,
